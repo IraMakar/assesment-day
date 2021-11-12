@@ -5,8 +5,11 @@ export const createPeople = async (people) => {
   return data;
 };
 
-export const fetchPeople = async () => {
-  const { data } = await $host.get("api/people?limit=4");
+export const fetchPeople = async (page, limit=4) => {
+  // const { data } = await $host.get("api/people?limit=4");
+  const { data } = await $host.get("api/people", {params: {
+    page, limit
+  }});
   return data;
 };
 
@@ -33,5 +36,12 @@ export const deleteOnePeople = async (id) => {
 };
 // export const deleteOnePeople = async ({ id }) => {
 //   const { data } = await $host.put("api/people/delete/" + id);
+//   return data;
+// };
+//TEST
+// export const deleteOnePeople = async (id) => {
+//   const { data } = await $host.put("api/people/delete/", {params: {
+  //id,
+// }} );
 //   return data;
 // };

@@ -7,7 +7,7 @@ const ApiError = require("../error/ApiError");
 class PeopleController {
   async create(req, res, next) {
     try {
-      const { name, surname, description, sum_mark } = req.body;
+      const { name, surname, description, sum_mark, info } = req.body;
       const { img } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img.mv(path.resolve(__dirname, "..", "static", fileName));
@@ -37,7 +37,7 @@ class PeopleController {
   async getAll(req, res) {
     let { limit, page } = req.query;
     page = page || 1;
-    limit = limit || 1;
+    limit = limit || 3;
     let offset = page * limit - limit;
     let peoples;
     peoples = await People.findAndCountAll({ limit, offset });
