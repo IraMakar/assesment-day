@@ -12,13 +12,12 @@ import { useParams } from "react-router"; //
 import { fetchOnePeople } from "../http/peopleAPI"; //
 
 const PeoplePage = () => {
-  //const people = {id: 1, name: "ппп", surname: "впарпор", description: "вапро", sum_mark: 5, img: `https://st2.depositphotos.com/3364363/5972/i/600/depositphotos_59728757-stock-photo-waiting-for-a-new-day.jpg`}
   const [people, setPeople] = useState({ info: [] }); //
   const { id } = useParams();
   useEffect(() => {
-    //
+    
     fetchOnePeople(id).then((data) => setPeople(data)); //
-  }, []); //
+  }, []); 
 
   const [comentVisible, setComentVisible] = useState(false);
 

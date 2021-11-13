@@ -7,19 +7,6 @@ import { Context } from "..";
 import Pages from "../components/Pages";
 import PeopleList from "../components/PeopleList";
 import { fetchPeople } from "../http/peopleAPI";
-//import { fetchPeople } from "../http/peopleAPI";
-//import { useState } from "react";//
- //const Main = () => { ////oto
-  // const Main = observe(() => { //
-  //   const [people, setPeople] = useState({ info: [] }); //
-    //const { id } = useParams();
-  //const { people } = useContext(Context); ///oto
-
-  // useEffect(() => {//bulo tse vse
-  //   //
-  //   fetchPeople().then((data) => setPeople(data)); //
-  // }, []); //
-  // //});
 
   const Main = () => {
     const {people} = useContext(Context)        
@@ -29,8 +16,7 @@ useEffect( () => {
       people.setPeoples(data.rows)
       people.setTotalCount(data.count)
     })
-}
-)
+})
 
 useEffect(() => {
   fetchPeople(people.page, 4).then(data => {
@@ -51,6 +37,5 @@ useEffect(() => {
     </Container>
   );
   };
-  //);
 
 export default Main;

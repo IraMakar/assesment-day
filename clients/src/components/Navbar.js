@@ -16,7 +16,7 @@ const NavBar = () => {
     const location = useLocation()
     const isAdd = location.pathname === MAIN_ROUTE
     const isAdd1 = location.pathname === ADMIN_ROUTE
-    console.log(location)
+    console.log(location.pathname.split("/"))
 
     return (
         <Navbar bg="dark" variant="dark">
@@ -60,7 +60,7 @@ const NavBar = () => {
                     > 
                     {isAdd ?  '' : 'Видалити учасника'  } 
                     </Button>   }
-                    <DeletePeople show={peopleVisibleO} onHide={() => setPeopleVisibleO(false)}/>
+                    <DeletePeople deletid={location.pathname.split("/")[2]} show={peopleVisibleO} onHide={() => setPeopleVisibleO(false)}/>
                     <ResetAllThePluses show={peopleVisible} onHide={() => setPeopleVisible(false)}/>
                 </Nav>
             </Container>

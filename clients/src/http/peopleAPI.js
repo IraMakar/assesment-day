@@ -31,7 +31,7 @@ export const updateOnePeople = async ({ id, sum_mark }) => {
 };
 
 export const deleteOnePeople = async (id) => {
-  const { data } = await $host.put("api/people/delete/" + id);
+  const { data } = await $host.delete("api/people/delete/" + id);
   return data;
 };
 // export const deleteOnePeople = async ({ id }) => {
@@ -40,8 +40,8 @@ export const deleteOnePeople = async (id) => {
 // };
 //TEST
 // export const deleteOnePeople = async (id) => {
-//   const { data } = await $host.put("api/people/delete/", {params: {
-  //id,
+//   const { data } = await $host.put("api/people/delete", {params: {
+//   id,
 // }} );
 //   return data;
 // };

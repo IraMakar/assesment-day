@@ -3,6 +3,13 @@ import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 
 const ResetAllThePluses = ({show, onHide}) => {
+  //const {people} = useContext(Context)  
+  // масивКористувачів.map(item=>{
+  //   updateOnePeople({
+  //   id: item.id,
+  //   sum_mark: 0
+  //   })
+  //   })
     return (
         <Modal
         show={show}
