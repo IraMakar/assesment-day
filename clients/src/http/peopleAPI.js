@@ -5,7 +5,7 @@ export const createPeople = async (people) => {
   return data;
 };
 
-export const fetchPeople = async (page, limit=4) => {
+export const fetchPeople = async (page, limit = 4) => {
   // const { data } = await $host.get("api/people?limit=4");
   const { data } = await $host.get("api/people", {params: {
     page, limit
@@ -18,8 +18,8 @@ export const fetchOnePeople = async (id) => {
   return data;
 };
 
-export const updatePeople = async () => {
-  const { data } = await $host.put("api/people/update");
+export const updatePeople = async (body = {}) => {
+  const { data } = await $host.put("api/people/update", body);
   return data;
 };
 

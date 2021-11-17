@@ -1,5 +1,6 @@
 const uuid = require("uuid");
 const path = require("path");
+const { Op } = require("sequelize");
 
 const { People } = require("../models/models");
 const ApiError = require("../error/ApiError");
@@ -27,10 +28,12 @@ class PeopleController {
   }
 
   async updateAll(req, res) {
-    const { sum_mark } = req.body;
-    //let mark = 0;
-    //const people = await People.update(req.body , { where: { id: id }});
-    const people = await People.update(req.body, { where: { sum_mark } });
+    const query = {};
+    if ('sum_mark' in req.body) {
+      query.sum_mark = req.body.sum_mark;
+    }
+
+    const people = await People.update(query, { where: { sum_mark: { [Op.ne]: 0, } } });
     return res.json(people);
   }
 
@@ -40,7 +43,11 @@ class PeopleController {
     limit = limit || 3;
     let offset = page * limit - limit;
     let peoples;
-    peoples = await People.findAndCountAll({ limit, offset });
+    peoples = await People.findAndCountAll({
+      limit,
+      offset,
+      order: ["id"]
+    });
     return res.json(peoples);
   }
 
@@ -53,6 +60,7 @@ class PeopleController {
   }
   async updateOne(req, res) {
     const { id } = req.params;
+    console.log('req.body', JSON.stringify(req.body));
     const people = await People.update(req.body, { where: { id: id } });
     console.log(people);
     return res.json(people);

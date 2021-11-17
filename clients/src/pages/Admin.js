@@ -1,20 +1,20 @@
-import React, { useContext, useState } from 'react';
-import { Button, Container, Form, Modal } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Container, Form } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import { Card } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { MAIN_ROUTE } from '../utils/consts';
 import { NavLink } from 'react-router-dom';
 import AddedPeople from '../components/modals/AddedPeople';
 import { createPeople } from '../http/peopleAPI';
-import { Context } from '..';
 
 
 //const Admin = () => {
-    const Admin = ({show, onHide}) => { //
+const Admin = ({show, onHide}) => { //
+    const history = useHistory()
 
     const [peopleVisible, setPeopleVisible] = useState(false)
     
-    const {people} = useContext(Context)
     const [name, setName] = useState(''); //
     const [lastName, setLastName] = useState(''); //
     const [description, setDescription] = useState(''); //
@@ -33,7 +33,12 @@ import { Context } from '..';
         formData.append('img', file)
         formData.append('info', JSON.stringify(info))
         createPeople(formData).then(data => setPeopleVisible(true))
-    }
+    };
+
+    const onAdd = () => {
+        setPeopleVisible(false);
+        history.replace('/main');
+    };
 
 
     return (
@@ -82,7 +87,7 @@ import { Context } from '..';
                             <NavLink style={{color:'black'}} to={MAIN_ROUTE} > А усьо, а в мене вже пропало бажання додавати нового чувачка( </NavLink>
                         </div>
                         </Button>
-                        <AddedPeople show={peopleVisible} onHide={() => setPeopleVisible(false)}/>
+                        <AddedPeople show={peopleVisible} onHide={onAdd}/>
                     </Row>
                 </Form>
             </Card>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { NavLink } from 'react-router-dom';
@@ -7,16 +7,29 @@ import { ADMIN_ROUTE } from '../utils/consts';
 import {Button, Container} from 'react-bootstrap';
 import { useState } from 'react';
 import DeletePeople from './modals/DeletePeople';
-import ResetAllThePluses from './modals/ResetAllThePluses';
+import ResetAllThePluses from './modals/Reset';
 import { useLocation } from 'react-router';
+import { updatePeople, fetchPeople } from '../http/peopleAPI';
+import { Context } from "..";
 
 const NavBar = () => {
-    const [peopleVisible, setPeopleVisible] = useState(false)
-    const [peopleVisibleO, setPeopleVisibleO] = useState(false)
+		const { people } = useContext(Context);
+    const [isOpenResetModal, setResetModalOpen] = useState(false)
+    const [isOpenDeleteModal, setDeleteModalOpen] = useState(false)
     const location = useLocation()
     const isAdd = location.pathname === MAIN_ROUTE
     const isAdd1 = location.pathname === ADMIN_ROUTE
-    console.log(location.pathname.split("/"))
+
+    const onReset = () => {
+			updatePeople({ sum_mark: 0 })
+				.then(() => {
+					fetchPeople(people.page)
+						.then((data) => {
+							people.setPeoples(data.rows);
+							setResetModalOpen(false);
+						});
+				});
+    };
 
     return (
         <Navbar bg="dark" variant="dark">
@@ -35,7 +48,7 @@ const NavBar = () => {
 
 {isAdd ? 
                 <Button variant={"outline-light"} className="ml-5" 
-                onClick={() => setPeopleVisible(true)} 
+                onClick={() => setResetModalOpen(true)} 
                 style={{color:'grey'} }
                 > 
                 {isAdd ? 'Обнулити всіх' : ''   } 
@@ -55,13 +68,21 @@ const NavBar = () => {
                      </Button>
                      :
 <Button variant={"outline-light"} className="ml-5" 
-                    onClick={() => setPeopleVisibleO(true)} 
+                    onClick={() => setDeleteModalOpen(true)} 
                     style={{color:'grey'} }
                     > 
                     {isAdd ?  '' : 'Видалити учасника'  } 
                     </Button>   }
-                    <DeletePeople deletid={location.pathname.split("/")[2]} show={peopleVisibleO} onHide={() => setPeopleVisibleO(false)}/>
-                    <ResetAllThePluses show={peopleVisible} onHide={() => setPeopleVisible(false)}/>
+                    <DeletePeople
+                      deletid={location.pathname.split("/")[2]}
+                      show={isOpenDeleteModal}
+                      onHide={() => setDeleteModalOpen(false)}
+                    />
+                    <ResetAllThePluses
+                      show={isOpenResetModal}
+                      onHide={() => setResetModalOpen(false)}
+											onReset={onReset}
+                    />
                 </Nav>
             </Container>
         </Navbar>

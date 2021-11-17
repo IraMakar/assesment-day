@@ -6,7 +6,7 @@ import { MAIN_ROUTE } from '../utils/consts';
 
 const AppRouter = () => {
     //const isAuth = true
-    const {user} = useContext(Context)
+    const { user } = useContext(Context)
 
     console.log(user)
     return (

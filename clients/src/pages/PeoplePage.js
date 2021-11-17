@@ -33,7 +33,7 @@ const PeoplePage = () => {
         </Col>
         <Col md={4}>
           <Row className="d-flex flex-column align-items-center justify-content-center">
-            <h2>{people.name}</h2>
+            <h2>{people.name} {people.surname}</h2>
             <div
               className="d-flex align-items-center justify-content-center"
               style={{
@@ -58,7 +58,7 @@ const PeoplePage = () => {
               border: "5px solid lightgray",
             }}
           >
-            <h3>шось {people.description} там</h3>
+            <h3> {people.description} </h3>
 
             <Button
               variant={"outline-dark"}
