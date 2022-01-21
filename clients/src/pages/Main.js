@@ -19,20 +19,20 @@ const Main = () => {
     });
   }, []);
 
-  useEffect(() => {
-    fetchPeople(people.page, 4).then((data) => {
-      console.log('page 2', data);
-      people.setPeoples(data.rows);
-      people.setTotalCount(data.count);
-    });
-  }, [people.page]);
+  // useEffect(() => {
+  //   fetchPeople(people.page, 4).then((data) => {
+  //     console.log('page 2', data);
+  //     people.setPeoples(data.rows);
+  //     people.setTotalCount(data.count);
+  //   });
+  // }, [people.page]);
 
   return (
-    <Container>
+    <Container fluid>
        <Row className="mt-10 ml-45">
-        <Col md={3}>
+        <Col md={12}>
           <PeopleList />
-          <Pages />
+          {/* <Pages /> */}
         </Col>
        </Row>
     </Container>

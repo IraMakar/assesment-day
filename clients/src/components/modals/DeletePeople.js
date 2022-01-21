@@ -9,7 +9,7 @@ const DeletePeople = ({ show, onHide, onSuccess, deletid }) => {
   const deleteOne = () => {
    console.log(deletid) 
     deleteOnePeople(deletid).then(() => {
-      window.location.href="http://localhost:3000/"
+      window.location.href = `/`;
       onHide(); 
     });
   };

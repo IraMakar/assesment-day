@@ -1,5 +1,6 @@
 const uuid = require("uuid");
 const path = require("path");
+const fs = require("fs");
 const { Op } = require("sequelize");
 
 const { People } = require("../models/models");
@@ -44,9 +45,9 @@ class PeopleController {
     let offset = page * limit - limit;
     let peoples;
     peoples = await People.findAndCountAll({
-      limit,
-      offset,
-      order: ["id"]
+      // limit,
+      // offset,
+      order: [["sum_mark", "DESC"]]
     });
     return res.json(peoples);
   }
@@ -68,7 +69,19 @@ class PeopleController {
 
   async deleteOne(req, res) {
     const { id } = req.params;
+    const user = await People.findOne({ where: { id } });
+    const { img } = user;
+
     const people = await People.destroy({ where: { id: id } });
+    /**
+     * Remove image from static if exists
+     */
+    try {
+      const fileName = path.resolve(__dirname, "..", "static", img);
+      fs.unlinkSync(fileName);
+    } catch (error) {
+      console.log("[deleteOne] error removing file");
+    }
     return res.json(people);
   }
 }

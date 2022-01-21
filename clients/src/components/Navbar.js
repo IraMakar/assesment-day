@@ -32,13 +32,13 @@ const NavBar = () => {
     };
 
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
             <Container> 
             <NavLink style={{color:'grey'}} to={MAIN_ROUTE}>Bank Team</NavLink>
                 <Nav className='.ml-1' style={{color:'white'}}>
                 {isAdd ? 
-                <Button variant={"outline-light" } 
-                > <NavLink style={{color:'grey'}} to={ADMIN_ROUTE}>{isAdd ? 'Додати чувачка' : '' }</NavLink>
+                <Button variant={"outline-light" } className="button" style={{ marginRight: 5 }}
+                > <NavLink className="button" style={{color:'grey'}} to={ADMIN_ROUTE}>{isAdd ? 'Додати чувачка' : '' }</NavLink>
                 </Button> 
 :
                     <Button variant="link"> 
@@ -47,7 +47,7 @@ const NavBar = () => {
 
 
 {isAdd ? 
-                <Button variant={"outline-light"} className="ml-5" 
+              <Button variant={"outline-light"} className="ml-5 button" 
                 onClick={() => setResetModalOpen(true)} 
                 style={{color:'grey'} }
                 > 
@@ -67,7 +67,7 @@ const NavBar = () => {
 <Button variant="link"> 
                      </Button>
                      :
-<Button variant={"outline-light"} className="ml-5" 
+<Button variant={"outline-light"} className="ml-5 button" 
                     onClick={() => setDeleteModalOpen(true)} 
                     style={{color:'grey'} }
                     > 

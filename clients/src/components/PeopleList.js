@@ -1,20 +1,19 @@
 import React, { useContext } from "react";
 import { Context } from "..";
-import { Col, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import PeopleItem from "./PeopleItem";
-//import { observe } from "mobx";
 
 const PeopleList = () => {
   const { people } = useContext(Context);
 
-  console.log('people', people);
-
   return (
-    <Col className="d-flex">
+    <Container fluid="xl" className="d-flex peopleContainer">
       {people.peoples.map(people => (
-        <PeopleItem key={people.id} people={people} />
+        <Row key={people.id} xs={1} md={3} xl={4} className="g-4">
+          <PeopleItem people={people} />
+        </Row>
       ))}
-    </Col>
+    </Container>
   );
 };
 
